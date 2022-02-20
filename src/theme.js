@@ -7,7 +7,7 @@ const theme = createTheme({
   palette: {
     primary: {
       main: "#124c62",
-      dark: "#124c62", // Bill Button
+      dark: "#4981a9", // Bill Button
       light: "#3c89a7", // New Button
     },
     common: {
