@@ -6,6 +6,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import AddIcon from "@material-ui/icons/Add";
+import FormDialog from "./formDialog";
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -61,6 +62,7 @@ const useStyles = makeStyles((theme) => ({
 const Header = () => {
   const classes = useStyles();
   const [filterType, setFilterType] = useState("");
+  const [open, setOpen] = useState(false);
   const menuProps = {
     getContentAnchorEl: null,
     anchorOrigin: {
@@ -106,10 +108,11 @@ const Header = () => {
             </Select>
           </FormControl>
         </div>
-        <div className={classes.newButton}>
+        <div className={classes.newButton} onClick={() => setOpen(true)}>
           <Typography>New Bills</Typography>
           <AddIcon className={classes.icon} />
         </div>
+        <FormDialog open={open} setOpen={setOpen} />
       </div>
     </div>
   );
