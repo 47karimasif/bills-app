@@ -6,17 +6,21 @@ import { ThemeProvider } from "@material-ui/core/styles";
 import theme from "./theme";
 import Navbar from "../src/components/navbar";
 
+import BillsContextProvider from "./context/billsContext";
+
 const App = () => {
   return (
-    <ThemeProvider theme={theme}>
-      <Router>
-        <Navbar />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/*" element={<NotFound />} />
-        </Routes>
-      </Router>
-    </ThemeProvider>
+    <BillsContextProvider>
+      <ThemeProvider theme={theme}>
+        <Router>
+          <Navbar />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/*" element={<NotFound />} />
+          </Routes>
+        </Router>
+      </ThemeProvider>
+    </BillsContextProvider>
   );
 };
 

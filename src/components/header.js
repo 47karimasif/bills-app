@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Typography } from "@material-ui/core";
 import InputLabel from "@material-ui/core/InputLabel";
@@ -7,6 +7,7 @@ import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import AddIcon from "@material-ui/icons/Add";
 import FormDialog from "./formDialog";
+import { billsContext } from "../context/billsContext";
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -61,6 +62,7 @@ const useStyles = makeStyles((theme) => ({
 
 const Header = () => {
   const classes = useStyles();
+  const { bills, setFilter } = useContext(billsContext);
   const [filterType, setFilterType] = useState("");
   const [open, setOpen] = useState(false);
   const menuProps = {
@@ -77,13 +79,14 @@ const Header = () => {
 
   const handleChange = (event) => {
     setFilterType(event.target.value);
+    setFilter(event.target.value);
   };
 
   return (
     <div className={classes.container}>
       <div className={classes.left}>
         <Typography variant="h5">Bills</Typography>
-        <Typography>Total 2 Bills</Typography>
+        <Typography>{`We have total ${bills.length} Bills`}</Typography>
       </div>
       <div className={classes.right}>
         <div className={classes.filterWrapper}>

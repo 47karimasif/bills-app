@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
 import Header from "../components/header";
 import { makeStyles } from "@material-ui/core/styles";
 import { Typography } from "@material-ui/core";
 import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
+import { billsContext } from "../context/billsContext";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -28,6 +29,7 @@ const useStyles = makeStyles((theme) => ({
     "&:hover": {
       cursor: "pointer",
     },
+    marginBottom: "20px",
   },
   icon: {
     color: "#FFF",
@@ -36,19 +38,33 @@ const useStyles = makeStyles((theme) => ({
 
 const Home = () => {
   const classes = useStyles();
+  const { bills, filter } = useContext(billsContext);
+  console.log(bills);
+  console.log(filter);
+
+  const filteredData =
+    filter !== "" ? bills.filter((item) => item.status === filter) : bills;
+
+  const priceAccumulator = (itemList) => {
+    let price = 0;
+    itemList.map((item) => (price += parseInt(item.item_price)));
+    return price;
+  };
   return (
     <div className={classes.root}>
       <div className={classes.container}>
         <Header />
       </div>
       <div className={classes.billsWrapper}>
-        <div className={classes.billsCard}>
-          <Typography>id</Typography>
-          <Typography>name</Typography>
-          <Typography>price</Typography>
-          <Typography>status</Typography>
-          <ArrowForwardIosIcon className={classes.icon} />
-        </div>
+        {filteredData.map((item, i) => (
+          <div className={classes.billsCard} key={i}>
+            <Typography>{item.id}</Typography>
+            <Typography>{item.customer_name}</Typography>
+            <Typography>{priceAccumulator(item.itemList)}</Typography>
+            <Typography>{item.status}</Typography>
+            <ArrowForwardIosIcon className={classes.icon} />
+          </div>
+        ))}
       </div>
     </div>
   );

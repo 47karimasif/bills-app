@@ -1,8 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { makeStyles, Typography } from "@material-ui/core";
 import TextField from "@material-ui/core/TextField";
 import { Button } from "@material-ui/core";
 import DeleteIcon from "@material-ui/icons/Delete";
+import { billsContext } from "../context/billsContext";
+import { uid } from "uid";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -83,7 +85,9 @@ const useStyles = makeStyles((theme) => ({
 
 const Form = ({ setOpen }) => {
   const classes = useStyles();
+  const { setBills } = useContext(billsContext);
   const [values, setValues] = useState({
+    id: uid(),
     customer_name: "",
     customer_email: "",
     product_description: "",
@@ -94,6 +98,7 @@ const Form = ({ setOpen }) => {
         item_price: "",
       },
     ],
+    status: "pending",
   });
   const [counter, setCounter] = useState(0);
 
@@ -131,7 +136,7 @@ const Form = ({ setOpen }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(values);
+    setBills((oldVlaues) => [...oldVlaues, values]);
     setOpen(false);
   };
 
