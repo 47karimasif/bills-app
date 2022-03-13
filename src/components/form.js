@@ -105,11 +105,16 @@ const Form = ({ setOpen }) => {
   useEffect(() => {}, [counter]);
 
   const handleNewItems = () => {
-    values.itemList.push({
+    const newItemList = {
       item_name: "",
       item_price: "",
-    });
-    setCounter((oldvalue) => oldvalue + 1);
+    };
+    // component will re render if we change state using its associated fnctn
+    setValues((oldValue) => ({
+      ...oldValue,
+      itemList: [...oldValue.itemList, newItemList],
+    }));
+    // setCounter((oldvalue) => oldvalue + 1);
   };
 
   const handleDeleteItems = (id) => {
