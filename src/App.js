@@ -5,6 +5,7 @@ import NotFound from "../src/pages/notFound";
 import { ThemeProvider } from "@material-ui/core/styles";
 import theme from "./theme";
 import Navbar from "../src/components/navbar";
+import Bills from "./pages/bills";
 
 import BillsContextProvider from "./context/billsContext";
 
@@ -16,6 +17,7 @@ const App = () => {
           <Navbar />
           <Routes>
             <Route path="/" element={<Home />} />
+            <Route path="/:id" element={<Bills />} />
             <Route path="/*" element={<NotFound />} />
           </Routes>
         </Router>

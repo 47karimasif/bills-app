@@ -4,6 +4,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { Typography } from "@material-ui/core";
 import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
 import { billsContext } from "../context/billsContext";
+import { useNavigate } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -41,6 +42,7 @@ const Home = () => {
   const { bills, filter } = useContext(billsContext);
   console.log(bills);
   console.log(filter);
+  const navigate = useNavigate();
 
   const filteredData =
     filter !== "" ? bills.filter((item) => item.status === filter) : bills;
@@ -57,7 +59,11 @@ const Home = () => {
       </div>
       <div className={classes.billsWrapper}>
         {filteredData.map((item, i) => (
-          <div className={classes.billsCard} key={i}>
+          <div
+            className={classes.billsCard}
+            key={i}
+            onClick={() => navigate(`/${item.id}`)}
+          >
             <Typography>{item.id}</Typography>
             <Typography>{item.customer_name}</Typography>
             <Typography>{priceAccumulator(item.itemList)}</Typography>
