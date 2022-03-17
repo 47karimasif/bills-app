@@ -58,6 +58,7 @@ const Bills = () => {
         if (item.id === params.id) {
           item.status = "paid";
         }
+        return 0;
       });
       return [...data];
     };
