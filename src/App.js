@@ -10,19 +10,31 @@ import Bills from "./pages/bills";
 import BillsContextProvider from "./context/billsContext";
 
 const App = () => {
+  console.log("rendering app js");
+  const spinner = document.getElementById("spinner");
+  const [loading, setLoading] = React.useState(true);
+
+  if (spinner) {
+    setTimeout(() => {
+      spinner.style.display = "none";
+      setLoading(false);
+    }, 2000);
+  }
   return (
-    <BillsContextProvider>
-      <ThemeProvider theme={theme}>
-        <Router>
-          <Navbar />
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/:id" element={<Bills />} />
-            <Route path="/*" element={<NotFound />} />
-          </Routes>
-        </Router>
-      </ThemeProvider>
-    </BillsContextProvider>
+    !loading && (
+      <BillsContextProvider>
+        <ThemeProvider theme={theme}>
+          <Router>
+            <Navbar />
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/:id" element={<Bills />} />
+              <Route path="/*" element={<NotFound />} />
+            </Routes>
+          </Router>
+        </ThemeProvider>
+      </BillsContextProvider>
+    )
   );
 };
 
